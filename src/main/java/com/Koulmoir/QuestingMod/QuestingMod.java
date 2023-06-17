@@ -1,5 +1,7 @@
-package com.Koulmoir.QuestingSystemAutomation;
+package com.Koulmoir.QuestingMod;
 
+import com.Koulmoir.QuestingMod.block.ModBlocks;
+import com.Koulmoir.QuestingMod.item.Moditems;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -11,16 +13,21 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(questingSystemAutomation.MODID)
-public class questingSystemAutomation
+@Mod(QuestingMod.MOD_ID)
+public class QuestingMod
 {
-    public static final String MODID = "questing";
+    public static final String MOD_ID = "questingmod";
     private static final Logger LOGGER = LogUtils.getLogger();
 
 
-    public questingSystemAutomation()
+    public QuestingMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+
+        Moditems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+
 
         modEventBus.addListener(this::commonSetup);
 
@@ -34,7 +41,7 @@ public class questingSystemAutomation
 
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModEvents
     {
         @SubscribeEvent
